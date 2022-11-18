@@ -16,7 +16,7 @@ Hint: you can use $\texttt{mean = c}(\mu_1,\mu_2)$ and $\texttt{sd = c}(\sigma_1
 n <- 1000
 sigma_1 = 3
 sigma_2 = 10
-mu_1 = 10
+mu_1 = 100
 mu_2 = -2
 mean = c(mu_1, mu_2)
 sd = c(sigma_1, sigma_2)
@@ -30,19 +30,14 @@ summary(my.data)
 
 ```{r}
 # draw histogram
-hist(my.data,
-     probability = T,
-
-    #breaks = seq(0.5,6.6),
-     main = paste("Histogram of the our normal distr with n=", n),
-     col = "lightblue",
-     xlab = "Values",
-
-     )
+hist(my.data, breaks=30,probability = T)
 # superimpose empirical density
-plot(ecdf(my.data))
-
+plot(density(my.data))
 # superimpose normal density
+x <- seq(min(my.data),max(my.data), by = .01)
+lines(x, dnorm(x, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
+#plot(ecdf(my.data))
+#lines(my.data, pnorm(my.data, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
 
 ```
 
@@ -50,10 +45,13 @@ plot(ecdf(my.data))
 
 ```{r}
 # plot ecdf
-
+plot(ecdf(my.data))
 # superimpose cdf for standard normal
+x <- seq(min(my.data),max(my.data),by=.01)
+lines(x, pnorm(x, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
 
 # calculate maximal difference 
+max(abs(ecdf(my.data)(x)-pnorm(x, mean = mean(my.data), sd = sd(my.data))))
 
 ```
 
@@ -98,8 +96,14 @@ For a standard normal distribution, the kurtosis is $3$. If we get a larger valu
 ```{r}
 # your code here
 # theoretical expected value and variance
-
+dtm <- replicate(1000, mean(rnorm(n, mean, sd^2)))
+theorexp <- sum(mean/2); 
+theorexp; 
+theorvar = sum(sd^2)
+theorvar
 # sample mean and sample variance
+mean(dtm)
+var(dtm)
 
 ```
 
