@@ -70,11 +70,39 @@ $$
 For a standard normal distribution, the kurtosis is $3$. If we get a larger value, then more data are concentrated ner the mean, and the empirical density is more steep
 
 ```{r}
-# your code here
 # skewness
+skewness <- function(x) {
+  m3 <- mean((x - mean(x))^3)
+  m2 <- mean((x - mean(x))^2)
+  return(m3 / m2^(3 / 2))
+}
+
+skewness_calculated <- skewness(my.data)
+print(skewness_calculated)
+if (skewness_calculated > 0) {
+  print("The data are positively skewed - the tail is longer on the right side")
+} else if (skewness_calculated < 0) {
+  print("The data are negatively skewed - the tail is longer on the left side")
+} else {
+  print("The data are symmetrically distributed")
+}
 
 # kurtosis
+kurtosis <- function(x) {
+  m4 <- mean((x - mean(x))^4)
+  m2 <- mean((x - mean(x))^2)
+  return(m4 / m2^2)
+}
 
+kurtosis_calculated <- kurtosis(my.data)
+print(kurtosis_calculated)
+if (kurtosis_calculated > 3) {
+  print("The data is more concentrated near the mean")
+} else if (kurtosis_calculated < 3) {
+  print("The data is more dispersed")
+} else {
+  print("The data is normally distributed")
+}
 ```
 
 ## 4. Percentiles
@@ -82,16 +110,35 @@ For a standard normal distribution, the kurtosis is $3$. If we get a larger valu
 ### For q= 0.1,...,0.9 calculate sample q-percentiles manually (i.e. by sorting the data and picking the corresponding values) and by using percentile
 
 ```{r}
-# your code here
-# skewness
+# sort the data
+sorted_data <- sort(my.data)
 
-# kurtosis
+# calculate sample q-percentiles manually
+q <- seq(0.1, 0.9, 0.1)
+print(q)
+percentiles <- q * n
+percentiles <- round(percentiles)
+percentiles <- percentiles + 1
+percentiles <- sorted_data[percentiles]
+print(percentiles)
 
+# calculate sample q-percentiles by using percentile
+quantile <- quantile(my.data, q)
+print(quantile)
 ```
 
 ## 5. Sample mean and sample standard error vs the theoretical ones
 
 ### What is the theoretical expected value of the random variable considered? What is the variance? Compare them to the sample values; explain the difference in the variance
+
+$$ \mu_{th} = E(W|W=x)*P(W=x) + E(W|W=y)*P(W=y)  =\frac{k*E(X) + k*E(Y)}{2k} = \frac{E(X) +E(Y)}{2} = 0.5(\mu_1 + \mu_2)$$
+
+$$ Var_{th} = Var(W) = E(W^2) - E(W)^2 $$
+$$ E(W^2) = E(W^2|W=x)*P(W=x) + E(W^2|W=y)*P(W=y) =0.5*(E(X^2) + E(Y^2)) = 0.5*(Var(X)  + E(X)^2 + Var(X)  + E(X)^2)$$
+$$E(W^2) =0.5(\sigma_1^2 + \sigma_2^2 + \mu_1^2 + \mu_2^2) $$
+$$ Var_{th} = Var(W) = E(W^2) - E(W)^2 = 0.5(\sigma_1^2 + \sigma_2^2 + \mu_1^2 + \mu_2^2) - \frac{\mu_1^2 + \mu_2^2 + 2\mu_1\mu_2}{4}$$
+
+$$ Var_{th} = 0.5(\sigma_1^2 + \sigma_2^2) + (\mu_1 - \mu_2)^2/4$$
 
 ```{r}
 # your code here
@@ -112,6 +159,11 @@ var(dtm)
 ### Calculate the fraction of the data that are within $k\sigma$ of the sample mean for $k=1,2,3$. Do we get the result expected? Why or why not?
 
 ```{r}
-# your code here
+# Calculate the fraction of the data that are within $k\sigma$ of the sample mean for $k=1,2,3$. Do we get the result expected? Why or why not?
 
+m = mean(my.data)
+s = sd(my.data)
+mean(abs(my.data - m) < s)
+mean(abs(my.data - m) < s*2)
+mean(abs(my.data - m) < s*3)
 ```
