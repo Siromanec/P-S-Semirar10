@@ -80,7 +80,7 @@ skewness <- function(x) {
 }
 
 skewness_calculated <- skewness(my.data)
-print(scewness_calculated)
+print(skewness_calculated)
 if (skewness_calculated > 0) {
   print("The data are positively skewed - the tail is longer on the right side")
 } else if (skewness_calculated < 0) {
@@ -112,11 +112,21 @@ if (kurtosis_calculated > 3) {
 ### For q= 0.1,...,0.9 calculate sample q-percentiles manually (i.e. by sorting the data and picking the corresponding values) and by using percentile
 
 ```{r}
-# your code here
-# skewness
+# sort the data
+sorted_data <- sort(my.data)
 
-# kurtosis
+# calculate sample q-percentiles manually
+q <- seq(0.1, 0.9, 0.1)
+print(q)
+percentiles <- q * n
+percentiles <- round(percentiles)
+percentiles <- percentiles + 1
+percentiles <- sorted_data[percentiles]
+print(percentiles)
 
+# calculate sample q-percentiles by using percentile
+quantile <- quantile(my.data, q)
+print(quantile)
 ```
 
 ## 5. Sample mean and sample standard error vs the theoretical ones
