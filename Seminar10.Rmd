@@ -72,11 +72,39 @@ $$
 For a standard normal distribution, the kurtosis is $3$. If we get a larger value, then more data are concentrated ner the mean, and the empirical density is more steep
 
 ```{r}
-# your code here
 # skewness
+skewness <- function(x) {
+  m3 <- mean((x - mean(x))^3)
+  m2 <- mean((x - mean(x))^2)
+  return(m3 / m2^(3 / 2))
+}
+
+skewness_calculated <- skewness(my.data)
+print(scewness_calculated)
+if (skewness_calculated > 0) {
+  print("The data are positively skewed - the tail is longer on the right side")
+} else if (skewness_calculated < 0) {
+  print("The data are negatively skewed - the tail is longer on the left side")
+} else {
+  print("The data are symmetrically distributed")
+}
 
 # kurtosis
+kurtosis <- function(x) {
+  m4 <- mean((x - mean(x))^4)
+  m2 <- mean((x - mean(x))^2)
+  return(m4 / m2^2)
+}
 
+kurtosis_calculated <- kurtosis(my.data)
+print(kurtosis_calculated)
+if (kurtosis_calculated > 3) {
+  print("The data is more concentrated near the mean")
+} else if (kurtosis_calculated < 3) {
+  print("The data is more dispersed")
+} else {
+  print("The data is normally distributed")
+}
 ```
 
 ## 4. Percentiles
