@@ -146,6 +146,11 @@ print(quantile)
 ### Calculate the fraction of the data that are within $k\sigma$ of the sample mean for $k=1,2,3$. Do we get the result expected? Why or why not?
 
 ```{r}
-# your code here
+# Calculate the fraction of the data that are within $k\sigma$ of the sample mean for $k=1,2,3$. Do we get the result expected? Why or why not?
 
+m = mean(my.data)
+s = sd(my.data)
+mean(abs(my.data - m) < s)
+mean(abs(my.data - m) < s*2)
+mean(abs(my.data - m) < s*3)
 ```
