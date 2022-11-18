@@ -14,12 +14,12 @@ Hint: you can use $\texttt{mean = c}(\mu_1,\mu_2)$ and $\texttt{sd = c}(\sigma_1
 ```{r}
 # your code here
 n <- 1000
-sigma_1 = 3
-sigma_2 = 10
-mu_1 = 100
-mu_2 = -2
-mean = c(mu_1, mu_2)
-sd = c(sigma_1, sigma_2)
+sigma_1 <- 3
+sigma_2 <- 10
+mu_1 <- 100
+mu_2 <- -2
+mean <- c(mu_1, mu_2)
+sd <- c(sigma_1, sigma_2)
 my.data <- rnorm(n, mean, sd^2)
 summary(my.data)
 ```
@@ -30,15 +30,14 @@ summary(my.data)
 
 ```{r}
 # draw histogram
-hist(my.data, breaks=30,probability = T)
+hist(my.data, breaks = 30, probability = T)
 # superimpose empirical density
 plot(density(my.data))
 # superimpose normal density
-x <- seq(min(my.data),max(my.data), by = .01)
-lines(x, dnorm(x, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
-#plot(ecdf(my.data))
-#lines(my.data, pnorm(my.data, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
-
+x <- seq(min(my.data), max(my.data), by = .01)
+lines(x, dnorm(x, mean = mean(my.data), sd = sd(my.data)), col = "red", lwd = 2)
+# plot(ecdf(my.data))
+# lines(my.data, pnorm(my.data, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
 ```
 
 ### Plot ecdf
@@ -47,12 +46,11 @@ lines(x, dnorm(x, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
 # plot ecdf
 plot(ecdf(my.data))
 # superimpose cdf for standard normal
-x <- seq(min(my.data),max(my.data),by=.01)
-lines(x, pnorm(x, mean = mean(my.data), sd = sd(my.data)), col ="red", lwd = 2)
+x <- seq(min(my.data), max(my.data), by = .01)
+lines(x, pnorm(x, mean = mean(my.data), sd = sd(my.data)), col = "red", lwd = 2)
 
-# calculate maximal difference 
-max(abs(ecdf(my.data)(x)-pnorm(x, mean = mean(my.data), sd = sd(my.data))))
-
+# calculate maximal difference
+max(abs(ecdf(my.data)(x) - pnorm(x, mean = mean(my.data), sd = sd(my.data))))
 ```
 
 ## 3. Skewness and kurtosis of the data
@@ -144,14 +142,13 @@ $$ Var_{th} = 0.5(\sigma_1^2 + \sigma_2^2) + (\mu_1 - \mu_2)^2/4$$
 # your code here
 # theoretical expected value and variance
 dtm <- replicate(1000, mean(rnorm(n, mean, sd^2)))
-theorexp <- sum(mean/2); 
-theorexp; 
-theorvar = sum(sd^2)
+theorexp <- sum(mean / 2)
+theorexp
+theorvar <- (sigma_1**2 + sigma_2**2) / 2 + 0.25 * (mu_1 - mu_2)**2
 theorvar
 # sample mean and sample variance
-mean(dtm)
-var(dtm)
-
+mean(my.data)
+var(my.data)
 ```
 
 ## 6. k-sigma rule
@@ -161,9 +158,9 @@ var(dtm)
 ```{r}
 # Calculate the fraction of the data that are within $k\sigma$ of the sample mean for $k=1,2,3$. Do we get the result expected? Why or why not?
 
-m = mean(my.data)
-s = sd(my.data)
+m <- mean(my.data)
+s <- sd(my.data)
 mean(abs(my.data - m) < s)
-mean(abs(my.data - m) < s*2)
-mean(abs(my.data - m) < s*3)
+mean(abs(my.data - m) < s * 2)
+mean(abs(my.data - m) < s * 3)
 ```
