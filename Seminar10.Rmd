@@ -21,7 +21,7 @@ mu_1 <- id
 mu_2 <- -2
 mean <- c(mu_1, mu_2)
 sd <- c(sigma_1, sigma_2)
-my.data <- rnorm(n, mean, sd^2)
+my.data <- rnorm(n, mean, sd)
 summary(my.data)
 ```
 
@@ -142,7 +142,6 @@ $$ Var_{th} = 0.5(\sigma_1^2 + \sigma_2^2) + (\mu_1 - \mu_2)^2/4$$
 ```{r}
 # your code here
 # theoretical expected value and variance
-dtm <- replicate(1000, mean(rnorm(n, mean, sd^2)))
 theorexp <- sum(mean / 2)
 theorexp
 theorvar <- (sigma_1**2 + sigma_2**2) / 2 + 0.25 * (mu_1 - mu_2)**2
