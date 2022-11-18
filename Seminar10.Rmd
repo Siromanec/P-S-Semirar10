@@ -133,6 +133,15 @@ print(quantile)
 
 ### What is the theoretical expected value of the random variable considered? What is the variance? Compare them to the sample values; explain the difference in the variance
 
+$$ \mu_{th} = E(W|W=x)*P(W=x) + E(W|W=y)*P(W=y)  =\frac{k*E(X) + k*E(Y)}{2k} = \frac{E(X) +E(Y)}{2} = 0.5(\mu_1 + \mu_2)$$
+
+$$ Var_{th} = Var(W) = E(W^2) - E(W)^2 $$
+$$ E(W^2) = E(W^2|W=x)*P(W=x) + E(W^2|W=y)*P(W=y) =0.5*(E(X^2) + E(Y^2)) = 0.5*(Var(X)  + E(X)^2 + Var(X)  + E(X)^2)$$
+$$E(W^2) =0.5(\sigma_1^2 + \sigma_2^2 + \mu_1^2 + \mu_2^2) $$
+$$ Var_{th} = Var(W) = E(W^2) - E(W)^2 = 0.5(\sigma_1^2 + \sigma_2^2 + \mu_1^2 + \mu_2^2) - \frac{\mu_1^2 + \mu_2^2 + 2\mu_1\mu_2}{4}$$
+
+$$ Var_{th} = 0.5(\sigma_1^2 + \sigma_2^2) + (\mu_1 - \mu_2)^2/4$$
+
 ```{r}
 # your code here
 # theoretical expected value and variance
