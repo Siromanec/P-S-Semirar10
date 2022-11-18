@@ -5,19 +5,24 @@ output: html_notebook
 
 ## 1. Data (Id is the average of the member's no. in the P&S list)
 
-### Task: Generate your data 
+### Task: Generate your data
 
 This is a sample of size $n=1000$ combined from two samples of size $500$ from the normal distributions $N(\mu_k,\sigma_k^2)$ with $\mu_1 = Id$, $\sigma_1 = 3$ and $\mu_2 = -2$, $\sigma_2 = Id$
 
 Hint: you can use $\texttt{mean = c}(\mu_1,\mu_2)$ and $\texttt{sd = c}(\sigma_1,\sigma_2)$
- 
 
 ```{r}
 # your code here
 n <- 1000
-#my.data <- rnorm(...)
-#summary(my.data)
-``` 
+sigma_1 = 3
+sigma_2 = 10
+mu_1 = 10
+mu_2 = -2
+mean = c(mu_1, mu_2)
+sd = c(sigma_1, sigma_2)
+my.data <- rnorm(n, mean, sd^2)
+summary(my.data)
+```
 
 ## 2. Visualise the data
 
@@ -25,8 +30,17 @@ n <- 1000
 
 ```{r}
 # draw histogram
+hist(my.data,
+     probability = T,
 
+    #breaks = seq(0.5,6.6),
+     main = paste("Histogram of the our normal distr with n=", n),
+     col = "lightblue",
+     xlab = "Values",
+
+     )
 # superimpose empirical density
+plot(ecdf(my.data))
 
 # superimpose normal density
 
@@ -34,7 +48,7 @@ n <- 1000
 
 ### Plot ecdf
 
-```{r} 
+```{r}
 # plot ecdf
 
 # superimpose cdf for standard normal
@@ -45,22 +59,19 @@ n <- 1000
 
 ## 3. Skewness and kurtosis of the data
 
-**Skewness** is defined as
-$$
+**Skewness** is defined as $$
   \mathsf{E} \left[\left({\frac {X-\mu }{\sigma }}\right)^{3}\right]={\frac {\mu _{3}}{\sigma ^{3}}}={\frac {\mathsf{E} \left[(X-\mu )^{3}\right]}{\ \ \ (\mathsf{E} \left[(X-\mu )^{2}\right])^{3/2}}}
 $$
 
 Positive skewness means the data have longer right tail and then the mean value $\mathsf{E}(X)$ is greater than the median
 
-**Kurtosis** is defined as 
-$$
+**Kurtosis** is defined as $$
   \mathsf{E} \left[\left({\frac {X-\mu }{\sigma }}\right)^{4}\right]={\frac {\mu _{4}}{\sigma ^{4}}}={\frac {\mathsf{E} \left[(X-\mu )^{4}\right]}{\ \ \ (\mathsf{E} \left[(X-\mu )^{2}\right])^{2}}}
 $$
 
 For a standard normal distribution, the kurtosis is $3$. If we get a larger value, then more data are concentrated ner the mean, and the empirical density is more steep
 
-
-```{r} 
+```{r}
 # your code here
 # skewness
 
@@ -68,11 +79,11 @@ For a standard normal distribution, the kurtosis is $3$. If we get a larger valu
 
 ```
 
-## 4. Percentiles 
+## 4. Percentiles
 
 ### For q= 0.1,...,0.9 calculate sample q-percentiles manually (i.e. by sorting the data and picking the corresponding values) and by using percentile
 
-```{r} 
+```{r}
 # your code here
 # skewness
 
@@ -80,8 +91,7 @@ For a standard normal distribution, the kurtosis is $3$. If we get a larger valu
 
 ```
 
-
-## 5. Sample mean and sample standard error vs the theoretical ones 
+## 5. Sample mean and sample standard error vs the theoretical ones
 
 ### What is the theoretical expected value of the random variable considered? What is the variance? Compare them to the sample values; explain the difference in the variance
 
@@ -93,7 +103,6 @@ For a standard normal distribution, the kurtosis is $3$. If we get a larger valu
 
 ```
 
-
 ## 6. k-sigma rule
 
 ### Calculate the fraction of the data that are within $k\sigma$ of the sample mean for $k=1,2,3$. Do we get the result expected? Why or why not?
@@ -102,4 +111,3 @@ For a standard normal distribution, the kurtosis is $3$. If we get a larger valu
 # your code here
 
 ```
-
